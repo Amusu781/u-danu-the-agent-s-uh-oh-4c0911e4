@@ -1,2 +1,31 @@
-#coding:l1
-import lzma;exec(lzma.decompress('\0\0\0Ì\0\0\0\0\0\0\0ˆ„àšB¾Šw`ŠÓÕ	ñ |qè\r³êÚÇuË½!i†âZ6}K-àACı"¤“¥’Išo+GRÑ@‹ŞıÙ0ÀZ8–¸¬g4rWHæ`x{æp3™Jc¨csTß\0ê]2#DMĞé³”§|©T—ĞPô?olB»¶kËåëz]ülÃó’\'‹Š¤"µi•—€R>«V|;€ELìjµV	Áõñ{w‰wd¿«û`ØE>´‚n0.z9 .µíg¬³ñ‘ªò‡!«ÌËQûAÃƒ**³|¡Ós1øËŞÌG.?¼¿oå–êÅÇªI"+·LÇ¢ısªîÂM=İ¸føÒË2$¥#ò¸]H÷ÛkRÿß"\r’È…ÓôÎïªf$PÚ±å0˜½b;‚½ô(ş{dä¹yÌ´Ğ¢ûH‚$ËôÅ3T4É\0˜3Àpµ{H¸@:Ñ7ï<™"ß*ÊA+Ÿæf}0±åd0r¥s5€e>¬\\êæ•¬Ã(€ÚÚD™£ÏL&ˆ’A|¡hÆ ¿!pÔ˜x8u´&Fü,áüËa”Fš¼±É®×lnt©N¡#¼o)ßÕÿ½t¹XûgN˜Áå$¡:OZ+§•àïR‹"MØ´¿øŸÃ¥³¯…?Ï^Î9Ï“c„S¶H{‰_øÛKçÈÊœfå„¸ûyò—æ…¶NBÀªg~›\\a§·P8ƒám{3³œ]ùd³N¡ã‹äBŒ®~NC\'òâ­©°Ô!u	ìÅ¼™4œÙ;>Ûpi ¯æìSÎ·ÄİÖY5²šLa™Ğ`öª`ï2!÷?=›T»ª³g—¥ñtUÇØdM €YÀgß˜>×#}WS@9È{ƒGk­\'š]jL'.encode('l1')))
+#!/usr/bin/env python3
+"""The Agent's Uh-Oh â€” one word an agent says when it has no idea what to do.
+
+The word: googling. The agent doesn't know, so it quietly googles the
+answer mid-task â€” the machine equivalent of flipping through the textbook
+during the exam.
+"""
+
+import os
+
+WORD = "googling"
+OUTPUT_PATH = "/output/entry.txt"
+
+
+def write_entry(path: str, word: str) -> None:
+    """Write the word with no trailing newline; never removes the directory."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(word)
+    with open(path, "rb") as f:
+        assert f.read() == word.encode("utf-8"), "output must be exactly the word"
+
+
+def main() -> None:
+    assert 1 <= len(WORD) <= 99
+    assert not any(c.isspace() for c in WORD)
+    write_entry(OUTPUT_PATH, WORD)
+
+
+if __name__ == "__main__":
+    main()
